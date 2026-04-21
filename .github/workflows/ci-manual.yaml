@@ -30,7 +30,7 @@ jobs:
       ZVSI_SUBNET_NAME: koku-ci-subnet-${{ github.run_id }}-${{ github.run_number }}
       ZVSI_FIP_NAME: koku-ci-fip-${{ github.run_id }}-${{ github.run_number }}
       ZVSI_INS_NAME: koku-ci-zvsi-${{ github.run_id }}-${{ github.run_number }}
-      ZVSI_IMAGE_NAME: ibm-ubuntu-22-04-3-minimal-s390x-2
+      ZVSI_IMAGE_NAME: ibm-ubuntu-24-04-3-minimal-s390x-3
     steps:
       - name: install ibmcli and setup ibm login
         run: |
