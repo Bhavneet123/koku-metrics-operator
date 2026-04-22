@@ -23,7 +23,8 @@ jobs:
     name: unit-test-zvsi (s390x)
     runs-on: ubuntu-latest
     env:
-      ZVSI_SSH_KEY: koku-ci-ssh-key  # Changed: Use existing key
+      #ZVSI_SSH_KEY: koku-ci-ssh-key  # Changed: Use existing key
+      ZVSI_SSH_KEY: koku-ci-ssh-key-${{ github.run_id }}-${{ github.run_number }}
       ZVSI_VPC_NAME: koku-ci-vpc-${{ github.run_id }}-${{ github.run_number }}
       ZVSI_PROFILE_NAME: bz2e-4x16
       ZVSI_SUBNET_NAME: koku-ci-subnet-${{ github.run_id }}-${{ github.run_number }}
