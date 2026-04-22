@@ -36,7 +36,10 @@ jobs:
           curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
           ibmcloud login -q --apikey ${{ secrets.IBMCLOUD_API_KEY }} -r ${{ inputs.ibmcloudRegion }} | head -3
           ibmcloud plugin install -f vpc-infrastructure
-      # Removed: generate ssh key step
+      - name: generate ssh key
+        run: |
+          ibmcloud is key-create $ZVSI_SSH_KEY "${{ secrets.ZVSI_PUBLIC_KEY }}" --key-type rsa --resource-group-id ${{ secrets.IBMCLOUD_RESOURCE_GROUP_ID }} -q --output JSON | jq 'del(.public_key,.resource_group)'
+          sleep 2
       - name: create a virtual private cloud instance
         run: |
            ibmcloud is vpc-create $ZVSI_VPC_NAME --resource-group-id ${{ secrets.IBMCLOUD_RESOURCE_GROUP_ID }}  -q --output JSON | jq 'del(.resource_group)'
