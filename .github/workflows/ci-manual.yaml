@@ -16,7 +16,6 @@ on:
         - eu-gb
         - jp-tok
         - br-sao
-  # pull_request_target:
 
 jobs:
 
@@ -24,7 +23,7 @@ jobs:
     name: unit-test-zvsi (s390x)
     runs-on: ubuntu-latest
     env:
-      ZVSI_SSH_KEY: koku-ci-ssh-key-${{ github.run_id }}-${{ github.run_number }}
+      ZVSI_SSH_KEY: koku-ci-ssh-key  # Changed: Use existing key
       ZVSI_VPC_NAME: koku-ci-vpc-${{ github.run_id }}-${{ github.run_number }}
       ZVSI_PROFILE_NAME: bz2-4x16
       ZVSI_SUBNET_NAME: koku-ci-subnet-${{ github.run_id }}-${{ github.run_number }}
@@ -37,10 +36,7 @@ jobs:
           curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
           ibmcloud login -q --apikey ${{ secrets.IBMCLOUD_API_KEY }} -r ${{ inputs.ibmcloudRegion }} | head -3
           ibmcloud plugin install -f vpc-infrastructure
-      - name: generate ssh key
-        run: |
-          ibmcloud is key-create $ZVSI_SSH_KEY "${{ secrets.ZVSI_PUBLIC_KEY }}" --key-type rsa --resource-group-id ${{ secrets.IBMCLOUD_RESOURCE_GROUP_ID }} -q --output JSON | jq 'del(.public_key,.resource_group)'
-          sleep 2
+      # Removed: generate ssh key step
       - name: create a virtual private cloud instance
         run: |
            ibmcloud is vpc-create $ZVSI_VPC_NAME --resource-group-id ${{ secrets.IBMCLOUD_RESOURCE_GROUP_ID }}  -q --output JSON | jq 'del(.resource_group)'
@@ -139,7 +135,4 @@ jobs:
         run: |
            ibmcloud is vpc-delete -f -q $ZVSI_VPC_NAME
            sleep 2
-      - name: cleanup ssh key
-        if: always()
-        run: |
-          ibmcloud is key-delete -f -q $ZVSI_SSH_KEY
+      # Removed: cleanup ssh key step
