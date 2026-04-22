@@ -26,7 +26,7 @@ jobs:
       ZVSI_SSH_KEY: koku-ci-ssh-key  # Changed: Use existing key
       #ZVSI_SSH_KEY: koku-ci-ssh-key-${{ github.run_id }}-${{ github.run_number }}
       ZVSI_VPC_NAME: koku-ci-vpc-${{ github.run_id }}-${{ github.run_number }}
-      ZVSI_PROFILE_NAME: bz2-4x16
+      ZVSI_PROFILE_NAME: cz2-4x8
       ZVSI_SUBNET_NAME: koku-ci-subnet-${{ github.run_id }}-${{ github.run_number }}
       ZVSI_FIP_NAME: koku-ci-fip-${{ github.run_id }}-${{ github.run_number }}
       ZVSI_INS_NAME: koku-ci-zvsi-${{ github.run_id }}-${{ github.run_number }}
